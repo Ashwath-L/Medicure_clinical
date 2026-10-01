@@ -1,0 +1,100 @@
+{
+  "heart": {
+    "rows": 1025,
+    "columns": [
+      "age",
+      "sex",
+      "cp",
+      "trestbps",
+      "chol",
+      "fbs",
+      "restecg",
+      "thalach",
+      "exang",
+      "oldpeak",
+      "slope",
+      "ca",
+      "thal",
+      "target",
+      "feat_hash"
+    ],
+    "missing": {
+      "age": 0,
+      "sex": 0,
+      "cp": 0,
+      "trestbps": 0,
+      "chol": 0,
+      "fbs": 0,
+      "restecg": 0,
+      "thalach": 0,
+      "exang": 0,
+      "oldpeak": 0,
+      "slope": 0,
+      "ca": 0,
+      "thal": 0,
+      "target": 0,
+      "feat_hash": 0
+    },
+    "target_dist": {
+      "1": 526,
+      "0": 499
+    },
+    "exact_duplicates": 723,
+    "feature_duplicates": 723,
+    "unique_feature_groups": 302,
+    "conflicting_groups": 0
+  },
+  "stroke": {
+    "rows": 5110,
+    "columns": [
+      "id",
+      "gender",
+      "age",
+      "hypertension",
+      "heart_disease",
+      "ever_married",
+      "work_type",
+      "Residence_type",
+      "avg_glucose_level",
+      "bmi",
+      "smoking_status",
+      "stroke"
+    ],
+    "missing": {
+      "id": 0,
+      "gender": 0,
+      "age": 0,
+      "hypertension": 0,
+      "heart_disease": 0,
+      "ever_married": 0,
+      "work_type": 0,
+      "Residence_type": 0,
+      "avg_glucose_level": 0,
+      "bmi": 201,
+      "smoking_status": 0,
+      "stroke": 0
+    },
+    "target_dist": {
+      "0": 4861,
+      "1": 249
+    },
+    "categorical_cols": [
+      "gender",
+      "ever_married",
+      "work_type",
+      "Residence_type",
+      "smoking_status"
+    ],
+    "numerical_cols": [
+      "id",
+      "age",
+      "hypertension",
+      "heart_disease",
+      "avg_glucose_level",
+      "bmi",
+      "stroke"
+    ],
+    "exact_duplicates": 0,
+    "feature_duplicates": 0
+  }
+}

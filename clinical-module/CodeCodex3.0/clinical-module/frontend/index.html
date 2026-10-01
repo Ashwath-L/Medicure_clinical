@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MedScope AI — Clinical Data Intelligence</title>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app-container">
+    
+    <!-- Top Bar / Header -->
+    <header class="app-header">
+      <div class="brand-container">
+        <div class="brand-logo-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
+          </svg>
+        </div>
+        <div class="brand-text">
+          <h1>MEDSCOPE <span>AI</span></h1>
+          <p class="brand-subtitle">Clinical Intelligence & Multimodal Screening</p>
+        </div>
+      </div>
+      
+      <!-- System Health Indicator -->
+      <div class="health-badge" id="healthBadge">
+        <span class="status-dot pulsing" id="healthDot"></span>
+        <span class="status-text" id="healthText">CHECKING AI SERVICE...</span>
+      </div>
+    </header>
+
+    <!-- Main Module Selector -->
+    <nav class="module-selector">
+      <button class="nav-tab active" id="tabHeart" onclick="switchTab('heart')">
+        <svg class="tab-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+        </svg>
+        Heart Disease Risk
+      </button>
+
+      <button class="nav-tab" id="tabStroke" onclick="switchTab('stroke')">
+        <svg class="tab-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M12 2a10 10 0 1 0 10 10H12V2z"/>
+          <path d="M12 12L2.5 7.5"/>
+          <path d="M12 12v9.5"/>
+        </svg>
+        Stroke Risk Analysis
+      </button>
+
+      <button class="nav-tab disabled" title="Integrated by teammate in Phase 8">
+        <svg class="tab-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="3" y="3" width="18" height="18" rx="2"/>
+        </svg>
+        X-Ray Module (Teammate)
+      </button>
+
+      <button class="nav-tab disabled" title="Integrated by teammate in Phase 8">
+        <svg class="tab-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+        </svg>
+        ECG Module (Teammate)
+      </button>
+    </nav>
+
+    <!-- Content Workspace Grid -->
+    <main class="workspace-grid">
+      
+      <!-- Input Panel -->
+      <section class="card form-panel">
+        <div class="panel-header">
+          <div>
+            <h2 id="formTitle">Heart Disease Clinical Assessment</h2>
+            <p class="panel-desc" id="formDesc">Input patient metrics to perform AI risk screening and feature importance evaluation.</p>
+          </div>
+          <div class="preset-buttons">
+            <button type="button" class="btn-preset" onclick="fillPreset('high')">⚡ High Risk Sample</button>
+            <button type="button" class="btn-preset" onclick="fillPreset('low')">🛡️ Low Risk Sample</button>
+          </div>
+        </div>
+
+        <!-- HEART FORM -->
+        <form id="heartForm" class="clinical-form">
+          <div class="form-grid">
+            
+            <div class="input-group">
+              <label for="h_age">Age (years)</label>
+              <input type="number" id="h_age" name="age" min="1" max="120" value="52" required>
+            </div>
+
+            <div class="input-group">
+              <label for="h_sex">Biological Sex</label>
+              <select id="h_sex" name="sex" required>
+                <option value="1" selected>Male (1)</option>
+                <option value="0">Female (0)</option>
+              </select>
+            </div>
+
+            <div class="input-group">
+              <label for="h_cp">Chest Pain Type</label>
+              <select id="h_cp" name="cp" required>
+                <option value="0" selected>Typical Angina (0)</option>
+                <option value="1">Atypical Angina (1)</option>
+                <option value="2">Non-anginal Pain (2)</option>
+                <option value="3">Asymptomatic (3)</option>
+              </select>
+            </div>
+
+            <div class="input-group">
+              <label for="h_trestbps">Resting Blood Pressure (mm Hg)</label>
+              <input type="number" id="h_trestbps" name="trestbps" min="50" max="300" value="125" required>
+            </div>
+
+            <div class="input-group">
+              <label for="h_chol">Serum Cholesterol (mg/dl)</label>
+              <input type="number" id="h_chol" name="chol" min="80" max="700" value="212" required>
+            </div>
+
+            <div class="input-group">
+              <label for="h_fbs">Fasting Blood Sugar > 120 mg/dl</label>
+              <select id="h_fbs" name="fbs" required>
+                <option value="0" selected>No / &le;120 mg/dl (0)</option>
+                <option value="1">Yes / &gt;120 mg/dl (1)</option>
+              </select>
+            </div>
+
+            <div class="input-group">
+              <label for="h_restecg">Resting ECG Result</label>
+              <select id="h_restecg" name="restecg" required>
+                <option value="0">Normal (0)</option>
+                <option value="1" selected>ST-T Wave Abnormality (1)</option>
+                <option value="2">Left Ventricular Hypertrophy (2)</option>
+              </select>
+            </div>
+
+            <div class="input-group">
+              <label for="h_thalach">Maximum Heart Rate (bpm)</label>
+              <input type="number" id="h_thalach" name="thalach" min="40" max="250" value="168" required>
+            </div>
+
+            <div class="input-group">
+              <label for="h_exang">Exercise Induced Angina</label>
+              <select id="h_exang" name="exang" required>
+                <option value="0" selected>No (0)</option>
+                <option value="1">Yes (1)</option>
+              </select>
+            </div>
+
+            <div class="input-group">
+              <label for="h_oldpeak">ST Depression (oldpeak)</label>
+              <input type="number" id="h_oldpeak" name="oldpeak" step="0.1" min="0.0" max="10.0" value="1.0" required>
+            </div>
+
+            <div class="input-group">
+              <label for="h_slope">ST Segment Slope</label>
+              <select id="h_slope" name="slope" required>
+                <option value="0">Upsloping (0)</option>
+                <option value="1">Flat (1)</option>
+                <option value="2" selected>Downsloping (2)</option>
+              </select>
+            </div>
+
+            <div class="input-group">
+              <label for="h_ca">Major Vessels Count (0-4)</label>
+              <select id="h_ca" name="ca" required>
+                <option value="0">0 Vessels (0)</option>
+                <option value="1">1 Vessel (1)</option>
+                <option value="2" selected>2 Vessels (2)</option>
+                <option value="3">3 Vessels (3)</option>
+                <option value="4">4 Vessels (4)</option>
+              </select>
+            </div>
+
+            <div class="input-group">
+              <label for="h_thal">Thalassemia Result</label>
+              <select id="h_thal" name="thal" required>
+                <option value="0">Normal (0)</option>
+                <option value="1">Fixed Defect (1)</option>
+                <option value="2">Reversible Defect (2)</option>
+                <option value="3" selected>Other / Unknown (3)</option>
+              </select>
+            </div>
+
+          </div>
+
+          <div class="form-actions">
+            <button type="submit" class="btn-primary" id="btnAnalyzeHeart">
+              <span class="btn-text">Run Heart AI Screening</span>
+              <span class="btn-spinner hidden"></span>
+            </button>
+          </div>
+        </form>
+
+        <!-- STROKE FORM -->
+        <form id="strokeForm" class="clinical-form hidden">
+          <div class="form-grid">
+
+            <div class="input-group">
+              <label for="s_gender">Gender</label>
+              <select id="s_gender" name="gender" required>
+                <option value="Male" selected>Male</option>
+                <option value="Female">Female</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
+
+            <div class="input-group">
+              <label for="s_age">Age (years)</label>
+              <input type="number" id="s_age" name="age" step="0.1" min="0" max="120" value="67.0" required>
+            </div>
+
+            <div class="input-group">
+              <label for="s_hypertension">Hypertension History</label>
+              <select id="s_hypertension" name="hypertension" required>
+                <option value="0" selected>No (0)</option>
+                <option value="1">Yes (1)</option>
+              </select>
+            </div>
+
+            <div class="input-group">
+              <label for="s_heart_disease">Heart Disease History</label>
+              <select id="s_heart_disease" name="heart_disease" required>
+                <option value="0">No (0)</option>
+                <option value="1" selected>Yes (1)</option>
+              </select>
+            </div>
+
+            <div class="input-group">
+              <label for="s_ever_married">Ever Married</label>
+              <select id="s_ever_married" name="ever_married" required>
+                <option value="Yes" selected>Yes</option>
+                <option value="No">No</option>
+              </select>
+            </div>
+
+            <div class="input-group">
+              <label for="s_work_type">Work Type</label>
+              <select id="s_work_type" name="work_type" required>
+                <option value="Private" selected>Private</option>
+                <option value="Self-employed">Self-employed</option>
+                <option value="Govt_job">Govt Job</option>
+                <option value="children">Children</option>
+                <option value="Never_worked">Never Worked</option>
+              </select>
+            </div>
+
+            <div class="input-group">
+              <label for="s_Residence_type">Residence Type</label>
+              <select id="s_Residence_type" name="Residence_type" required>
+                <option value="Urban" selected>Urban</option>
+                <option value="Rural">Rural</option>
+              </select>
+            </div>
+
+            <div class="input-group">
+              <label for="s_avg_glucose_level">Avg Glucose Level (mg/dL)</label>
+              <input type="number" id="s_avg_glucose_level" name="avg_glucose_level" step="0.01" min="40" max="350" value="228.69" required>
+            </div>
+
+            <div class="input-group">
+              <label for="s_bmi">BMI (Body Mass Index) <span class="opt-tag">(Optional)</span></label>
+              <input type="number" id="s_bmi" name="bmi" step="0.1" min="10" max="100" value="36.6" placeholder="Leave blank for auto-imputation">
+            </div>
+
+            <div class="input-group">
+              <label for="s_smoking_status">Smoking Status</label>
+              <select id="s_smoking_status" name="smoking_status" required>
+                <option value="formerly smoked" selected>Formerly Smoked</option>
+                <option value="never smoked">Never Smoked</option>
+                <option value="smokes">Smokes</option>
+                <option value="Unknown">Unknown</option>
+              </select>
+            </div>
+
+          </div>
+
+          <div class="form-actions">
+            <button type="submit" class="btn-primary" id="btnAnalyzeStroke">
+              <span class="btn-text">Run Stroke AI Screening</span>
+              <span class="btn-spinner hidden"></span>
+            </button>
+          </div>
+        </form>
+
+      </section>
+
+      <!-- Results & Explainability Panel -->
+      <section class="card results-panel" id="resultsPanel">
+        
+        <!-- Placeholder State -->
+        <div class="placeholder-state" id="placeholderState">
+          <div class="pulse-ring"></div>
+          <svg class="placeholder-icon" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <circle cx="12" cy="12" r="10"/>
+            <line x1="12" y1="8" x2="12" y2="12"/>
+            <line x1="12" y1="16" x2="12.01" y2="16"/>
+          </svg>
+          <h3>Awaiting Clinical Input</h3>
+          <p>Fill in patient data and click <strong>Run AI Screening</strong> to generate real-time model probability scores and explainability insights.</p>
+        </div>
+
+        <!-- Error State -->
+        <div class="error-alert hidden" id="errorAlert">
+          <div class="error-icon">⚠️</div>
+          <div class="error-content">
+            <h4 id="errorTitle">Service Notice</h4>
+            <p id="errorMsg">Clinical AI service is currently unavailable. Please verify that the FastAPI backend is running.</p>
+          </div>
+        </div>
+
+        <!-- Active Result View -->
+        <div class="result-content hidden" id="resultContent">
+          
+          <!-- Banner Card -->
+          <div class="result-banner" id="resultBanner">
+            <div class="banner-top">
+              <span class="screening-tag" id="screeningTag">AI SCREENING RESULT</span>
+              <span class="module-chip" id="moduleChip">HEART MODULE</span>
+            </div>
+            
+            <h2 class="result-status" id="resultStatusText">--</h2>
+            <p class="result-message" id="resultMessageText">--</p>
+          </div>
+
+          <!-- Probability Gauge Card -->
+          <div class="score-card">
+            <div class="score-header">
+              <span class="score-label">MODEL PROBABILITY SCORE</span>
+              <span class="score-subtext">Statistical output from trained model</span>
+            </div>
+
+            <div class="score-display">
+              <div class="score-value" id="scoreValue">0.0%</div>
+              <div class="gauge-bar-bg">
+                <div class="gauge-bar-fill" id="gaugeFill" style="width: 0%;"></div>
+              </div>
+            </div>
+            <p class="gauge-caption">Note: Represents statistical model confidence score based on clinical training features.</p>
+          </div>
+
+          <!-- Explainability Feature List -->
+          <div class="explainability-card">
+            <div class="explain-header">
+              <h3>FEATURES THAT INFLUENCED THIS MODEL PREDICTION</h3>
+              <p class="explain-subtext">Ranked top 4 model feature contributions based on normalized coefficients.</p>
+            </div>
+
+            <div class="feature-list" id="featureList">
+              <!-- Dynamically populated -->
+            </div>
+
+            <div class="explain-footer">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/>
+              </svg>
+              <span>These features influenced the model prediction. They should not be interpreted as medical causation or disease origins.</span>
+            </div>
+          </div>
+
+          <!-- Mandatory Safety Disclaimer -->
+          <footer class="disclaimer-banner">
+            <svg class="disclaimer-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
+            </svg>
+            <p id="disclaimerText">This system is an AI-assisted screening prototype and does not replace professional medical evaluation.</p>
+          </footer>
+
+        </div>
+
+      </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="app-footer">
+      <p>MedScope AI Platform &copy; 2026 | Hackathon Clinical Data Module Prototype</p>
+    </footer>
+
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
